@@ -8,7 +8,7 @@ const cors = require("cors");
 require('dotenv').config();
 
 const app = express();
-const port = 8080;
+const port = process.env.PORT || 8080;
 const uri = `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@cluster0.y6x8e.mongodb.net/fitnex?retryWrites=true&w=majority`;
 
 //Models

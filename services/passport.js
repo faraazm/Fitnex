@@ -1,13 +1,13 @@
 require('dotenv').config();
 const mongoose = require('mongoose');
-const secret = process.env.SECRET
+const { secret } = require('../config');
 const User = mongoose.model('User');
 const { Strategy, ExtractJwt } = require('passport-jwt');
 
 function initPassport(passport){
 	const opts = {
 		jwtFromRequest: ExtractJwt.fromHeader('authorization'),
-		secretOrKey: secret
+		secretOrKey: process.env.SECRET || secret
 	}
 
 	passport.use(new Strategy(opts, async (payload, done) => {
