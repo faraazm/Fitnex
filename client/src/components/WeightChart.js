@@ -130,14 +130,18 @@ const WeightChart = ({ modalOpen, setModalOpen }) => {
                     </Group>
                 </form>
             </Modal>
-            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 15 }}>
-                <Title size="xl" order={3} mb="sm">Your weight 📊</Title>
-                <Button size="xs" color="pink" variant={daysSelected === 7 ? 'filled' : 'light'} onClick={() => updateChartData(7)}>1W</Button>
-                <Button size="xs" color="pink" variant={daysSelected === 30 ? 'filled' : 'light'} onClick={() => updateChartData(30)}>1M</Button>
-                <Button size="xs" color="pink" variant={daysSelected === 365 ? 'filled' : 'light'} onClick={() => updateChartData(365)}>1Y</Button>
-                <Button size="xs" color="pink" variant={daysSelected === 'all' ? 'filled' : 'light'} onClick={() => updateChartData('all')}>All</Button>
-                <ActionIcon color="pink" variant="outline" size="md" onClick={() => setModalOpen(true)}><AiOutlinePlus /></ActionIcon>
-                <ActionIcon color="pink" variant="outline" size="md" onClick={() => setShowDeleteWeightModal(true)}><AiOutlineMinus /></ActionIcon>
+            <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between', alignItems: 'center', marginBottom: 15 }}>
+                <div>
+                    <Title size="xl" order={3} m="xs">Your weight 📊</Title>
+                </div>
+                <div style={{ display: 'flex' }}>
+                    <Button size="xs" color="pink" m="xs" ml="0" variant={daysSelected === 7 ? 'filled' : 'light'} onClick={() => updateChartData(7)}>1W</Button>
+                    <Button size="xs" color="pink" m="xs" variant={daysSelected === 30 ? 'filled' : 'light'} onClick={() => updateChartData(30)}>1M</Button>
+                    <Button size="xs" color="pink" m="xs" variant={daysSelected === 365 ? 'filled' : 'light'} onClick={() => updateChartData(365)}>1Y</Button>
+                    <Button size="xs" color="pink" m="xs" variant={daysSelected === 'all' ? 'filled' : 'light'} onClick={() => updateChartData('all')}>All</Button>
+                    <ActionIcon color="pink" m="xs" variant="outline" size="md" onClick={() => setModalOpen(true)}><AiOutlinePlus /></ActionIcon>
+                    <ActionIcon color="pink" m="xs" variant="outline" size="md" onClick={() => setShowDeleteWeightModal(true)}><AiOutlineMinus /></ActionIcon>
+                </div>
             </div>
             {Object.keys(chartData).length ?
                 <Line options={options} data={chartData} ref={(reference) => setChartReference(reference)} /> :

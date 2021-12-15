@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { getFoods, getMeals, logMeal, deleteMeal } from '../helpers/dashboard'
 import { Table, Modal, Title, ActionIcon, Select, Button, Group, Text } from '@mantine/core'
 import { DatePicker } from '@mantine/dates'
+import { useMediaQuery } from '@mantine/hooks'
 import { AiOutlinePlus, AiOutlineCalendar, AiOutlineDelete } from 'react-icons/ai'
 import moment from 'moment'
 
@@ -80,6 +81,8 @@ const MealHistory = ({ modalOpen, setModalOpen, caloriesConsumed, caloriesRemain
         return Math.round( num * 100 + Number.EPSILON ) / 100
     }
 
+    const isMobile = useMediaQuery('(max-width: 1000px)')
+
     return (
         <>
             <Modal opened={modalOpen} onClose={() => setModalOpen(false)} title="Add Meal">
@@ -101,11 +104,16 @@ const MealHistory = ({ modalOpen, setModalOpen, caloriesConsumed, caloriesRemain
                     </Group>
                 </form>
             </Modal>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 15 }}>
-                <Title size="xl" order={3}>Meal History 🍔</Title>
-                <DatePicker icon={<AiOutlineCalendar />} value={date} placeholder="MM/DD/YYYY" onChange={(value) => findMealByDate(value)} />
-                <ActionIcon color="yellow" variant="light" size="lg" onClick={() => setModalOpen(true)}><AiOutlinePlus /></ActionIcon>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', marginBottom: 15 }}>
+                <div style={{ marginBottom: isMobile ? 10 : 0 }}>
+                    <Title size="xl" order={3}>Meal History 🍔</Title>
+                </div>
+                <div style={{ display: 'flex', alignItems: 'center' }}>
+                    <DatePicker mr="sm" icon={<AiOutlineCalendar />} value={date} placeholder="MM/DD/YYYY" onChange={(value) => findMealByDate(value)} />
+                    <ActionIcon color="yellow" variant="light" size="lg" onClick={() => setModalOpen(true)}><AiOutlinePlus /></ActionIcon>
+                </div>
             </div>
+            <div style={{ overflowX: 'auto' }}>
             {meals.length > 0 ?
                 <Table>
                     <thead>
@@ -135,6 +143,7 @@ const MealHistory = ({ modalOpen, setModalOpen, caloriesConsumed, caloriesRemain
                 </Table> :
                 !isToday && <Text color="dimmed">No results found. Try another date.</Text>
             }
+            </div>
             {
                 !meals.length && isToday ?
                     <Group direction="column">

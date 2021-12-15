@@ -2,7 +2,7 @@ import { Text, Group, ThemeIcon, Avatar, Navbar as DashboardNavbar } from '@mant
 import { AiOutlinePieChart, AiOutlineUser, AiOutlineSetting, AiOutlineBarChart } from 'react-icons/ai'
 import { Link } from 'react-router-dom'
 
-const Navbar = ({ user }) => {
+const Navbar = ({ user, setOpened }) => {
     const navbarItems = [
         {
             name: 'Dashboard',
@@ -18,13 +18,13 @@ const Navbar = ({ user }) => {
         },
         {
             name: 'Reports',
-            route: '/reports',
+            route: '/dashboard/reports',
             icon: <AiOutlineBarChart />,
             color: 'blue'
         },
         {
             name: 'Settings',
-            route: '/settings',
+            route: '/dashboard/settings',
             icon: <AiOutlineSetting />,
             color: 'violet'
         }
@@ -36,7 +36,7 @@ const Navbar = ({ user }) => {
                 <Group direction="column">
                     {
                         navbarItems.map(item =>
-                            <Group key={item.name}>
+                            <Group key={item.name} onClick={() => setOpened((o) => !o)}>
                                 <ThemeIcon color={item.color} variant="light" size="lg">{item.icon}</ThemeIcon>
                                 <Link to={item.route}><Text color="gray" size="sm" weight={500}>{item.name}</Text></Link>
                             </Group>

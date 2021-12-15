@@ -12,18 +12,27 @@ canvas {
   height: 100%;
 }
 
+.mantine-AppShell-main {
+  width: 100%;
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  width: 0; /* Remove scrollbar space */
+  background: transparent; /* Optional: just make scrollbar invisible */
+}
+
 .btn {
-  @apply transition duration-300 ease-in-out px-4 py-2 font-medium rounded 
+  @apply transition duration-300 ease-in-out px-4 py-2 font-medium rounded;
 }
 
 .btn--lg {
-  @apply px-4 py-2 sm:px-8 sm:py-4 lg:text-xl
+  @apply px-4 py-2 sm:px-8 sm:py-4 lg:text-xl;
 }
 
 .btn--purple {
-  @apply bg-purple-600 hover:bg-purple-700 text-white rounded
+  @apply bg-purple-600 hover:bg-purple-700 text-white rounded;
 }
 
 .btn--light-purple {
-  @apply bg-purple-100 hover:bg-purple-200 text-purple-600 rounded
+  @apply bg-purple-100 hover:bg-purple-200 text-purple-600 rounded;
 }

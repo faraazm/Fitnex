@@ -6,6 +6,9 @@ import NavbarContent from './Navbar'
 import HeaderContent from './Header'
 import MainLayout from './MainLayout'
 import Profile from './Profile'
+import Reports from './Reports'
+import Settings from './Settings'
+import NotFound from './NotFound'
 
 const Dashboard = () => {
     const [opened, setOpened] = useState(false);
@@ -20,7 +23,7 @@ const Dashboard = () => {
 
     return (
         <AppShell
-            style={{ backgroundColor: '#fafafa' }}
+            style={{ backgroundColor: '#fafafa', width: '100%' }}
             navbarOffsetBreakpoint="sm"
             fixed
             navbar={
@@ -30,7 +33,7 @@ const Dashboard = () => {
                     hidden={!opened}
                     width={{ sm: 250, lg: 300 }}
                 >
-                    <NavbarContent user={user} />
+                    <NavbarContent user={user} setOpened={setOpened} />
                 </Navbar>
             }
             header={
@@ -42,8 +45,9 @@ const Dashboard = () => {
             <Routes>
                 <Route path="/" element={<MainLayout user={user} />} />
                 <Route path="/profile" element={<Profile user={user} />} />
-                <Route path="/reports" element={<Text>Test</Text>} />
-                <Route path="/settings" element={<Text>Test</Text>} />
+                <Route path="/reports" element={<Reports />} />
+                <Route path="/settings" element={<Settings />} />
+                <Route component={NotFound} />
             </Routes>
         </AppShell>
     );

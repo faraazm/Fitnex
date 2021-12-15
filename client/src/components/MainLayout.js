@@ -30,6 +30,33 @@ const MainLayout = ({ user }) => {
         }
     }
 
+    const calorieCards = [
+        {
+            title: 'Calorie Intake',
+            value: user.calorieIntake,
+            icon: <AiOutlineThunderbolt />,
+            color: 'cyan'
+        },
+        {
+            title: 'Calories Consumed',
+            value: caloriesConsumed,
+            icon: <AiOutlineFire />,
+            color: 'violet'
+        },
+        {
+            title: 'Calories Burnt',
+            value: caloriesBurnt,
+            icon: <AiOutlineFire />,
+            color: 'orange'
+        },
+        {
+            title: 'Calories Remaining',
+            value: caloriesRemaining,
+            icon: <IoFastFoodOutline />,
+            color: 'green'
+        }
+    ]
+
     useEffect(() => {
         (async () => { await loadUserData() })()
     }, [])
@@ -37,60 +64,41 @@ const MainLayout = ({ user }) => {
     const isMobile = useMediaQuery('(max-width: 1000px)')
 
     return (
-        <>
+        <div style={{ width: '100%' }}>
             <div style={{ marginBottom: 15 }}>
-                <Title size="xl" order={1}>Hello, {user.name}! 👋</Title>
+                <Title size="xl" order={isMobile ? 2 : 1}>Hello, {user.name}! 👋</Title>
                 <Text color="dimmed" mb="sm">This is the ultimate dashboard for you to stay on track on your calories!</Text>
                 <Group>
-                    <Button color="cyan" variant="light" leftIcon={<FaWeight />} onClick={() => setWeightModalOpen(true)}>Log Weight</Button>
-                    <Button color="yellow" variant="light" leftIcon={<IoFastFoodOutline />} onClick={() => setMealModalOpen(true)}>Log Meal</Button>
-                    <Button color="teal" variant="light" leftIcon={<BiDumbbell />} onClick={() => setExerciseModalOpen(true)}>Log Exercise</Button>
+                    <Button size={isMobile ? 'xs' : 'md'} color="cyan" variant="light" leftIcon={<FaWeight />} onClick={() => setWeightModalOpen(true)}>Log Weight</Button>
+                    <Button size={isMobile ? 'xs' : 'md'} color="yellow" variant="light" leftIcon={<IoFastFoodOutline />} onClick={() => setMealModalOpen(true)}>Log Meal</Button>
+                    <Button size={isMobile ? 'xs' : 'md'} color="teal" variant="light" leftIcon={<BiDumbbell />} onClick={() => setExerciseModalOpen(true)}>Log Exercise</Button>
                 </Group>
             </div>
 
-            <div style={{ display: 'flex', flexWrap: 'wrap', width: isMobile ? '100%' : 'auto' }}>
-                <Paper padding="md" shadow="sm" mr="sm" mb="sm" style={{ width: isMobile ? '100%' : 220 }}>
-                    <div style={{ display: 'flex', marginBottom: 10 }}>
-                        <ThemeIcon radius="xl" color="cyan"><AiOutlineThunderbolt /></ThemeIcon>
-                        <Text ml="sm" color="dimmed">Caloric Intake</Text>
-                    </div>
-                    <Title weight={500} style={{ color: '#363636', marginBottom: 10 }} order={2}>{user.calorieIntake}</Title>
-                    <Progress color="cyan" value={75} radius="xl" />
-                </Paper>
 
-                <Paper padding="md" shadow="sm" mr="sm" mb="sm" style={{ width: isMobile ? '100%' : 220 }}>
-                    <div style={{ display: 'flex', marginBottom: 10 }}>
-                        <ThemeIcon radius="xl" color="violet"><AiOutlineFire /></ThemeIcon>
-                        <Text ml="sm" color="dimmed">Calories Consumed</Text>
-                    </div>
-                    <Title weight={500} style={{ color: '#363636', marginBottom: 10 }} order={2}>{caloriesConsumed}</Title>
-                    <Progress color="violet" value={35} radius="xl" />
-                </Paper>
+                <div className="hide-scrollbar" style={{ display: 'flex', width: isMobile ? '100%' : 'auto', overflowX: 'auto' }}>
+                    {
+                        calorieCards.map(item => 
+                            <div key={item.title} style={{ minWidth: isMobile ? 185 : 240 }}>
+                                <Paper padding="md" shadow="sm" mr="sm" mb="sm">
+                                    <div style={{ display: 'flex', flexDirection: isMobile ? 'column' : 'row', alignItems: 'center', marginBottom: 10 }}>
+                                        <ThemeIcon radius="xl" color={item.color} mb={isMobile && 'sm'} size="xl">{item.icon}</ThemeIcon>
+                                        <Text ml={isMobile ? 0 : "sm"} color="dimmed" size={isMobile ? "sm" : "md"}>{item.title}</Text>
+                                    </div>
+                                    <Title align={isMobile ? 'center' : 'left'} weight={500} style={{ color: '#363636', marginBottom: 10 }} order={isMobile ? 3 : 2}>{item.value}</Title>
+                                    <Progress color={item.color} value={75} radius="xl" size={isMobile ? 'sm' : 'md'} />
+                                </Paper>                
+                            </div>
+                        )
+                    }
+                </div>
 
-                <Paper padding="md" shadow="sm" mr="sm" mb="sm" style={{ width: isMobile ? '100%' : 220 }}>
-                    <div style={{ display: 'flex', marginBottom: 10 }}>
-                        <ThemeIcon radius="xl" color="orange"><AiOutlineFire /></ThemeIcon>
-                        <Text ml="sm" color="dimmed">Calories Burnt</Text>
-                    </div>
-                    <Title weight={500} style={{ color: '#363636', marginBottom: 10 }} order={2}>{caloriesBurnt}</Title>
-                    <Progress color="orange" value={35} radius="xl" />
-                </Paper>
 
-                <Paper padding="md" shadow="sm" mr="sm" mb="sm" style={{ width: isMobile ? '100%' : 220 }}>
-                    <div style={{ display: 'flex', marginBottom: 10 }}>
-                        <ThemeIcon radius="xl" color="green"><IoFastFoodOutline /></ThemeIcon>
-                        <Text ml="sm" color="dimmed">Calories Remaining</Text>
-                    </div>
-                    <Title weight={500} style={{ color: '#363636', marginBottom: 10 }} order={2}>{caloriesRemaining}</Title>
-                    <Progress color="green" value={50} radius="xl" />
-                </Paper>
-            </div>
-
-            <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-                <Paper padding="xl" mr="sm" mb="sm" shadow="sm" style={{ width: isMobile ? '100%' : 550 }}>
+            <div className="hide-scrollbar" style={{ display: 'flex', overflowX: 'auto' }}>
+                <Paper padding="xl" mr="sm" mb="sm" shadow="sm" style={{ width: 550 }}>
                     <WeightChart modalOpen={weightModalOpen} setModalOpen={setWeightModalOpen} />
                 </Paper>
-                <Paper padding="xl" shadow="sm" mb="sm" mr="sm" style={{ width: isMobile ? '100%' : 325 }}>
+                <Paper padding="xl" shadow="sm" mb="sm" mr="sm" style={{ width: 325 }}>
                     <Title size="xl" order={3} mb="sm">Macro Breakdown 🥧</Title>
                     <MacroChart 
                         modalOpen={mealModalOpen}
@@ -100,7 +108,7 @@ const MainLayout = ({ user }) => {
                 </Paper>
             </div>
 
-            <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+            <div style={{ display: 'flex', flexWrap: 'wrap', marginRight: 10 }}>
                 <Paper padding="xl" mr="sm" mb="sm" shadow="sm" style={{ width: isMobile ? '100%' : 550 }}>
                     <MealHistory 
                         modalOpen={mealModalOpen}
@@ -112,7 +120,7 @@ const MainLayout = ({ user }) => {
                         setMealAdded={setMealAdded}
                     />
                 </Paper>
-                <Paper padding="xl" mr="sm" mb="sm" shadow="sm" style={{ width: isMobile ? '100%' : 550 }}>
+                <Paper padding="xl" mb="sm" shadow="sm" style={{ width: isMobile ? '100%' : 550 }}>
                     <ExerciseHistory 
                         modalOpen={exerciseModalOpen}
                         setModalOpen={setExerciseModalOpen}
@@ -123,7 +131,7 @@ const MainLayout = ({ user }) => {
                     />
                 </Paper>
             </div>
-        </>
+        </div>
     )
 }
 
