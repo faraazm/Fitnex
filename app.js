@@ -4,12 +4,12 @@ const passport = require('passport');
 const morgan = require('morgan')
 const path = require('path')
 const cors = require("cors");
+const keys = require('./config/keys')
 // Loads Environment Variables
 require('dotenv').config();
 
 const app = express();
 const port = process.env.PORT || 8080;
-const databaseURI = process.env.DB_URI;
 
 //Models
 mongoose.model('User', require('./models/User'));
@@ -19,7 +19,7 @@ mongoose.model('Meal', require('./models/Meal'));
 mongoose.model('Weight', require('./models/Weight'));
 
 // Connecting to DB
-mongoose.connect(databaseURI, {useNewUrlParser: true, useUnifiedTopology: true}, err => {
+mongoose.connect(keys.mongoURI, {useNewUrlParser: true, useUnifiedTopology: true}, err => {
   if (err) throw err;
   else console.log('Successfully connected to MongoDB');
 });

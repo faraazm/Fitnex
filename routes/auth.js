@@ -4,14 +4,14 @@ const router = express.Router()
 const mongoose = require('mongoose')
 const User = mongoose.model('User')
 const jwt = require('jsonwebtoken')
-const { secret } = require('../config')
+const keys = require('../config/keys')
 
 const passport = require('passport')
 const requireAuth = passport.authenticate('jwt', { session: false })
 
 function tokenForUser(user) {
   const timestamp = new Date().getTime()
-  return jwt.sign({ sub: user._id, iat: timestamp }, process.env.SECRET || secret)
+  return jwt.sign({ sub: user._id, iat: timestamp }, keys.secret)
 }
 
 router.post('/signUp', async (req, res) => {
