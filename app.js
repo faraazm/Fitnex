@@ -9,7 +9,7 @@ require('dotenv').config();
 
 const app = express();
 const port = process.env.PORT || 8080;
-const uri = `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@cluster0.y6x8e.mongodb.net/fitnex?retryWrites=true&w=majority`;
+const databaseURI = process.env.DB_URI;
 
 //Models
 mongoose.model('User', require('./models/User'));
@@ -19,7 +19,7 @@ mongoose.model('Meal', require('./models/Meal'));
 mongoose.model('Weight', require('./models/Weight'));
 
 // Connecting to DB
-mongoose.connect(uri, {useNewUrlParser: true, useUnifiedTopology: true}, err => {
+mongoose.connect(databaseURI, {useNewUrlParser: true, useUnifiedTopology: true}, err => {
   if (err) throw err;
   else console.log('Successfully connected to MongoDB');
 });
