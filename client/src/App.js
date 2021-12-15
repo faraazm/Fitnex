@@ -16,6 +16,17 @@ import './index.css'
 import './App.css'
 
 const App = () => {
+  const { NODE_ENV } = process.env
+  const inProduction = NODE_ENV === 'production'
+  const baseURL = inProduction ? 'https://fitnex-workouts.herokuapp.com' : 'http://localhost:8080'
+
+  axios
+  .create({ baseURL, withCredentials: true })
+  .interceptors.response.use(
+    response => response,
+    error => Promise.reject(error),
+  );
+  
   axios.interceptors.request.use(function (config) {
     const token = localStorage.getItem('token')
     config.headers.Authorization = token

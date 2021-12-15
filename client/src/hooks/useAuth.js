@@ -42,7 +42,7 @@ function useAuth() {
         authenticated,
         completedMeasurements,
         async signIn(email, password) {
-            const response = await axios.post('http://localhost:8080/api/auth/signIn', {
+            const response = await axios.post('/api/auth/signIn', {
                 email,
                 password
             })
@@ -53,7 +53,7 @@ function useAuth() {
             }
         },
         async signUp(email, password) {
-            const response = await axios.post('http://localhost:8080/api/auth/signUp', {
+            const response = await axios.post('/api/auth/signUp', {
                 email,
                 password
             })

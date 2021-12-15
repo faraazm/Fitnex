@@ -113,7 +113,7 @@ const Onboarding = () => {
         const heightInCentimeters = totalInches * 2.54
 
         try {
-            const response = await axios.post('http://localhost:8080/api/onboarding/', {
+            const response = await axios.post('/api/onboarding/', {
                 name,
                 age,
                 gender,
