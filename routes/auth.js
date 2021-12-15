@@ -1,9 +1,10 @@
+require('dotenv').config();
 const express = require('express')
 const router = express.Router()
 const mongoose = require('mongoose')
 const User = mongoose.model('User')
 const jwt = require('jsonwebtoken')
-const { secret } = require('../config')
+const secret = process.env.SECRET
 
 const passport = require('passport')
 const requireAuth = passport.authenticate('jwt', { session: false })

@@ -2,12 +2,13 @@ const express = require('express');
 const mongoose = require('mongoose');
 const passport = require('passport');
 const morgan = require('morgan')
-const app = express();
-const port = 8080;
+const path = require('path')
 const cors = require("cors");
 // Loads Environment Variables
 require('dotenv').config();
 
+const app = express();
+const port = 8080;
 const uri = `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PASSWORD}@cluster0.y6x8e.mongodb.net/fitnex?retryWrites=true&w=majority`;
 
 //Models
@@ -48,7 +49,11 @@ app.use('/api/activity', require('./routes/activity'))
 app.use('/api/onboarding', require('./routes/onboarding'))
 app.use('/api/weight', require('./routes/weight'))
 
-app.use(express.static(__dirname + '/public'));
+app.use(express.static(path.join(__dirname, "client", "build")))
+
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "client", "build", "index.html"));
+});
 
 // Server Listening
 app.listen(port, () => {

@@ -1,5 +1,6 @@
+require('dotenv').config();
 const mongoose = require('mongoose');
-const { secret } = require('../config');
+const secret = process.env.SECRET
 const User = mongoose.model('User');
 const { Strategy, ExtractJwt } = require('passport-jwt');
 
