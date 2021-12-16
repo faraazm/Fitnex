@@ -13,11 +13,11 @@ const SignIn = () => {
 
   useEffect(() => {
     if (authenticated && completedMeasurements) {
-      navigate('/dashboard')
+      navigate('/dashboard', { replace: true })
     } else if (authenticated && !completedMeasurements) {
-      navigate('/onboarding')
+      navigate('/onboarding', { replace: true })
     }
-  })
+  }, [authenticated, completedMeasurements, navigate])
 
   const handleSignIn = async (e) => {
     e.preventDefault()
@@ -32,9 +32,9 @@ const SignIn = () => {
         const response = await signIn(email, password)
         const { authenticated, completedMeasurements } = response.authenticated
         if (authenticated && !completedMeasurements) {
-          navigate("/onboarding");
+          navigate('/onboarding', { replace: true });
         } else {
-          navigate("/dashboard");
+          navigate('/dashboard', { replace: true });
         }
       } catch (error) {
         console.log(error)

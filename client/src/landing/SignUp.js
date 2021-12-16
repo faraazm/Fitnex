@@ -33,7 +33,7 @@ const SignUp = () => {
       try {
         const response = await signUp(email, password)
         if(response.authenticated) {
-          navigate('/onboarding')
+          navigate('/onboarding', { replace: true })
         }
       } catch (error) {
         console.log(error)

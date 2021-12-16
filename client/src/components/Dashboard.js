@@ -1,6 +1,6 @@
 import { Routes, Route } from 'react-router-dom'
 import { useState, useEffect } from 'react';
-import { AppShell, Header, Navbar, Text } from '@mantine/core';
+import { AppShell, Header, Navbar } from '@mantine/core';
 import { getCurrentUser } from '../helpers/dashboard'
 import NavbarContent from './Navbar'
 import HeaderContent from './Header'
