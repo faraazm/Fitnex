@@ -16,23 +16,21 @@ import './index.css'
 import './App.css'
 
 const App = () => {
-  const { NODE_ENV } = process.env
-  const inProduction = NODE_ENV === 'production'
-  const baseURL = inProduction ? 'https://fitnex-workouts.herokuapp.com' : 'http://localhost:8080'
+  let baseURL = 'http://localhost:8080'
+  if (Object.keys(process).length && process.env.NODE_ENV === 'production') {
+    baseURL = 'https://fitnex-workouts.herokuapp.com'
+  }
+  axios.create({ baseURL, withCredentials: true }).interceptors.response.use(
+    (response) => response,
+    (error) => Promise.reject(error),
+  )
 
-  axios
-  .create({ baseURL, withCredentials: true })
-  .interceptors.response.use(
-    response => response,
-    error => Promise.reject(error),
-  );
-  
   axios.interceptors.request.use(function (config) {
     const token = localStorage.getItem('token')
     config.headers.Authorization = token
 
-    return config;
-  });
+    return config
+  })
 
   return (
     <MantineProvider theme={{
@@ -76,8 +74,10 @@ function RequireAuth({ children }) {
     return children
   } else if (authenticated && !completedMeasurements && children.type.name === 'Onboarding') {
     return children
+  } else if (authenticated && !completedMeasurements) {
+    return <Navigate to="/onboarding" replace state={{ path: location.pathname }} />
   } else {
-    return <Navigate to="/sign-in" state={{ path: location.pathname }} />
+    return <Navigate to="/sign-in" replace state={{ path: location.pathname }} />
   }
 }
 

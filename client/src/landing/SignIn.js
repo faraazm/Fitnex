@@ -17,7 +17,7 @@ const SignIn = () => {
     } else if (authenticated && !completedMeasurements) {
       navigate('/onboarding', { replace: true })
     }
-  })
+  }, [authenticated, completedMeasurements, navigate])
 
   const handleSignIn = async (e) => {
     e.preventDefault()
@@ -29,13 +29,7 @@ const SignIn = () => {
 
     if (email.trim() !== '' && password.trim() !== '') {
       try {
-        const response = await signIn(email, password)
-        const { authenticated, completedMeasurements } = response.authenticated
-        if (authenticated && !completedMeasurements) {
-          navigate('/onboarding', { replace: true });
-        } else {
-          navigate('/dashboard', { replace: true });
-        }
+        await signIn(email, password)
       } catch (error) {
         console.log(error)
         alert('There was a problem with your request')
