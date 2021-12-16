@@ -32,6 +32,7 @@ function useAuth() {
     // Checks if the user has completed their measurements
     const hasCompletedMeasurements = (response) => {
         const { completedMeasurements } = response.data
+        console.log(completedMeasurements)
         localStorage.setItem('completedMeasurements', completedMeasurements)
         setCompletedMeasurements(completedMeasurements)
         return completedMeasurements
