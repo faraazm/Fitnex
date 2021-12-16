@@ -35,7 +35,7 @@ const SignIn = () => {
       try {
         const response = await signIn(email, password)
         const { authenticated, completedMeasurements } = response.authenticated
-        if (authenticated && !completedMeasurements) {
+        if (Object.keys(response).length && authenticated && !completedMeasurements) {
           navigate('/onboarding');
         } else {
           navigate('/dashboard');
