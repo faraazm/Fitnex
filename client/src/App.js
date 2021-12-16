@@ -76,8 +76,6 @@ function RequireAuth({ children }) {
     return children
   } else if (authenticated && !completedMeasurements && children.type.name === 'Onboarding') {
     return children
-  } else if (authenticated && !completedMeasurements) {
-    return <Navigate to="/onboarding" state={{ path: location.pathname }} />
   } else {
     return <Navigate to="/sign-in" state={{ path: location.pathname }} />
   }
