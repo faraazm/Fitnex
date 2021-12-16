@@ -67,18 +67,14 @@ function RequireAuth({ children }) {
   const authenticated = token ? true : false
   const location = useLocation()
 
-  console.log('Test')
-
   // Checks if the user is authenticated and if they completed the onboarding flow
   if (authenticated && completedMeasurements) {
     return children
   } else if (authenticated && !completedMeasurements && children.type.name === 'Onboarding') {
     return children
-  } else if (authenticated && !completedMeasurements) {
-    return <Navigate to="/onboarding" replace state={{ path: location.pathname }} />
-  } else {
-    return <Navigate to="/" replace state={{ path: location.pathname }} />
   }
+
+  return <Navigate to="/" replace state={{ path: location.pathname }} />
 }
 
 export default App
