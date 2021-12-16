@@ -17,7 +17,7 @@ const SignIn = () => {
     } else if (authenticated && !completedMeasurements) {
       navigate('/onboarding', { replace: true })
     }
-  }, [authenticated, completedMeasurements, navigate])
+  })
 
   const handleSignIn = async (e) => {
     e.preventDefault()
