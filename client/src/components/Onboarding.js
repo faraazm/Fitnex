@@ -1,6 +1,6 @@
 import { Grid, Col, Text, TextInput, NumberInput, Select, Space, Button, Title, Center, RadioGroup, Radio } from '@mantine/core'
 import { useForm } from '@mantine/hooks'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import useAuth from '../hooks/useAuth'
 import axios from 'axios'
@@ -21,6 +21,14 @@ const Onboarding = () => {
     const [calorieIntake, setCalorieIntake] = useState('')
     
     const navigate = useNavigate()
+
+    useEffect(() => {
+        const completedMeasurements = JSON.parse(localStorage.getItem('completedMeasurements'),)
+
+        if (completedMeasurements) {
+          navigate('/dashboard')
+        }
+      }, [navigate])
 
     const form = useForm({
         initialValues: {

@@ -80,22 +80,10 @@ const App = () => {
 
 function RequireAuth({ children }) {
   const token = localStorage.getItem('token')
-  const completedMeasurements = JSON.parse(
-    localStorage.getItem('completedMeasurements'),
-  )
   const authenticated = token ? true : false
   const location = useLocation()
 
-  // Checks if the user is authenticated and if they completed the onboarding flow
-  if (authenticated && completedMeasurements) {
-    return children
-  } else if (authenticated && !completedMeasurements && children.type.name === 'Onboarding') {
-    return children
-  } else if (authenticated && !completedMeasurements) {
-    return <Navigate to="/onboarding" replace state={{ path: location.pathname }} />
-  } else {
-    return <Navigate to="/sign-in" replace state={{ path: location.pathname }} />
-  }
+  return authenticated ? children : <Navigate to="/" replace state={{ path: location.pathname }} />
 }
 
 export default App

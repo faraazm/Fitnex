@@ -34,7 +34,8 @@ const SignIn = () => {
     if (email.trim() !== '' && password.trim() !== '') {
       try {
         const response = await signIn(email, password)
-        const { authenticated, completedMeasurements } = response.authenticated
+        const { authenticated, completedMeasurements } = response
+        console.log(authenticated, completedMeasurements)
         if (Object.keys(response).length && authenticated && !completedMeasurements) {
           navigate('/onboarding');
         } else {
