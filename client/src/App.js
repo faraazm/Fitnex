@@ -77,7 +77,7 @@ function RequireAuth({ children }) {
   } else if (authenticated && !completedMeasurements) {
     return <Navigate to="/onboarding" replace state={{ path: location.pathname }} />
   } else {
-    return <Navigate to="/sign-in" replace state={{ path: location.pathname }} />
+    return <Navigate to="/" replace state={{ path: location.pathname }} />
   }
 }
 
