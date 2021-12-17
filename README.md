@@ -22,6 +22,7 @@ Password: Test1234
 * [Express](https://expressjs.com/) for data storage and realtime functionality
 * [MongoDB](https://www.mongodb.com/cloud/atlas/migrate/mlab) Mlab Atlas for easy database setup
 * [Passport](http://www.passportjs.org/packages/passport-jwt/) for authenticating JWT's
+* [Heroku](https://www.heroku.com/home) for deploying the app to the cloud
 
 ## Main Features 🔥
 #### Authentication
