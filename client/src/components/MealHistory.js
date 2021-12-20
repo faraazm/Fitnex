@@ -51,11 +51,18 @@ const MealHistory = ({ modalOpen, setModalOpen, caloriesConsumed, caloriesRemain
     }
 
     const removeMeal = async (mealId) => {
+        const selectedDate = new Date(date)
+        const today = new Date()
+        const isDeletingForToday = selectedDate.getMonth() === today.getMonth() && selectedDate.getDate() === today.getDate()
         const removedMeal = await deleteMeal(mealId)
+
         if (removedMeal) {
+            setMeals(meals.filter(meal => meal._id !== mealId))
+        }
+
+        if(isDeletingForToday) {
             setCaloriesConsumed(round(caloriesConsumed - removedMeal.calories))
             setCaloriesRemaining(round(caloriesRemaining + removedMeal.calories))
-            setMeals(meals.filter(meal => meal._id !== mealId))
             setMealAdded(removedMeal)
         }
     }

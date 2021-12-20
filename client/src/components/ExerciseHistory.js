@@ -37,12 +37,20 @@ const ExerciseHistory = ({ modalOpen, setModalOpen, caloriesBurnt, caloriesRemai
     }
 
     const removeExercise = async (exerciseId) => {
+        const selectedDate = new Date(date)
+        const today = new Date()
+        const isDeletingForToday = selectedDate.getMonth() === today.getMonth() && selectedDate.getDate() === today.getDate()
+
         const removedExercise = await deleteExercise(exerciseId)
 
         if (removedExercise) {
+            setExercises(exercises.filter(exercise => exercise._id !== exerciseId))
+        }
+
+        // Updating calorie card counts ONLY if deleting todays exercises
+        if(isDeletingForToday) {
             setCaloriesBurnt(round(caloriesBurnt - removedExercise.calories))
             setCaloriesRemaining(round(caloriesRemaining - removedExercise.calories))
-            setExercises(exercises.filter(exercise => exercise._id !== exerciseId))
         }
     }
 
